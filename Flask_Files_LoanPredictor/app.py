@@ -1,10 +1,13 @@
 import requests
 from os import stat
+import json
 from flask import Flask, render_template, request, url_for, redirect
 import pickle
 from sklearn.preprocessing import StandardScaler
 # NOTE: you must manually set API_KEY below using information retrieved from your IBM Cloud account.
-API_KEY = "Bw7s8Ck0jh1mkIE_g3-WCWPoDOr_r_Q-3mv4r4orZ03e"
+with open('API_KEY.json') as f:
+    data = json.load(f)
+API_KEY = data["API_KEY"]
 token_response = requests.post('https://iam.cloud.ibm.com/identity/token', data={"apikey":
                                                                                  API_KEY, "grant_type": 'urn:ibm:params:oauth:grant-type:apikey'})
 mltoken = token_response.json()["access_token"]
